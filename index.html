@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Hogueras 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hogueras25">
+</head>
+<body>
+
+    <div id="welcome-screen" class="screen active">
+        <div class="welcome-content">
+            <img src="icon.png" alt="Icono Hogueras" class="welcome-icon">
+            <p class="subtitle">Ruta personalizada</p>
+            <h1 class="title-hogueras">HOGUERAS</h1>
+            <h2 class="title-year">2025</h2>
+            <button id="start-button">Comenzar ruta</button>
+        </div>
+        <div class="welcome-background" style="background-image: url('images/luceros_welcome.png');"></div>
+    </div>
+
+    <div id="app-screen" class="screen">
+        <header>
+            <button id="home-btn" class="nav-button"><span class="icon">🏠</span></button>
+            <span id="current-stop-number"></span>
+        </header>
+        <main>
+            <h2 id="stop-title"></h2>
+            <h3 id="stop-lema"></h3>
+            <p id="stop-artist"></p>
+            <img id="stop-image" src="" alt="Imagen de la parada">
+            <p id="stop-description"></p>
+            <div class="buttons">
+                <button id="map-btn">Ver en Google Maps</button>
+                <button id="back-btn">Volver</button>
+                <button id="next-btn">Siguiente</button>
+                <button id="optional-btn" style="display:none;"></button>
+            </div>
+        </main>
+        <footer>
+            <div id="stop-selection-container">
+                <label for="stop-selector">Ir a parada:</label>
+                <select id="stop-selector"></select>
+            </div>
+        </footer>
+    </div>
+
+    <div id="image-modal" class="modal">
+        <span class="close-button">×</span>
+        <img id="modal-image" src="" alt="Imagen ampliada">
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker: Registered'))
+                    .catch(err => console.log(`Service Worker: Error: ${err}`));
+            });
+        }
+    </script>
+</body>
+</html>
