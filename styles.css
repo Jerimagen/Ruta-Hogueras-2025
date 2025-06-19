@@ -1,0 +1,414 @@
+:root {
+    --primary-color: #f75d00; /* Naranja fuego */
+    --secondary-color: #ffda00; /* Amarillo Hoguera */
+    --background-color: #fffbe6; /* Crema suave */
+    --text-color: #333;
+    --button-bg: #007aff; /* Azul original, si se prefiere un contraste */
+    --button-hover: #005bb5;
+    --hogueras-red: #d32f2f;
+    --hogueras-orange: #f57c00;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to top for app screen */
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.screen {
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    position: absolute; /* To stack screens */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Default z-index */
+}
+
+.screen.active {
+    display: flex;
+    z-index: 2; /* Active screen is on top */
+}
+
+/* Welcome Screen Specifics */
+#welcome-screen {
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    color: white; /* Text color over background image */
+    overflow: hidden;
+}
+
+.welcome-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6); /* Darken background image for readability */
+    z-index: -1;
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3); /* Slight overlay for text */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 20px; /* Softer edges for icon */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+}
+
+.title-hogueras {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 4em;
+    color: var(--primary-color);
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    line-height: 1;
+}
+
+.title-year {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--secondary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    margin-top: -10px;
+}
+
+#start-button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 1.3em;
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--secondary-color);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#start-button:hover {
+    background-color: var(--hogueras-orange);
+    transform: translateY(-2px);
+    border-color: white;
+}
+
+/* App Screen Specifics */
+#app-screen {
+    justify-content: flex-start; /* Aligns content to the top */
+    padding-top: 20px;
+    padding-bottom: 80px; /* Space for fixed footer */
+    position: relative; /* Needed for footer positioning */
+}
+
+header {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+#home-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.8em;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#home-btn:hover {
+    color: var(--primary-color);
+    background-color: transparent;
+}
+
+#current-stop-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+main {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    flex-grow: 1; /* Allows main content to take available space */
+}
+
+#stop-title {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#stop-lema {
+    font-size: 1.2em;
+    color: var(--hogueras-red);
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#stop-artist {
+    font-size: 1em;
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#stop-image {
+    width: 100%;
+    max-height: 350px; /* Max height for display in the step */
+    object-fit: contain; /* Changed to contain to show full image without cropping */
+    border-radius: 12px;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 3px solid var(--secondary-color);
+    cursor: zoom-in; /* Indicate it's clickable */
+}
+
+#stop-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-top: 20px;
+    text-align: justify;
+    padding: 0 5px;
+}
+
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    justify-content: center;
+    gap: 15px; /* Space between buttons */
+    padding-bottom: 30px; /* Padding for scrollable content */
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 25px; /* More rounded buttons */
+    background-color: var(--button-bg);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-width: 150px; /* Ensure buttons have a minimum width */
+}
+
+button#map-btn {
+    background-color: #4285F4; /* Google Maps blue */
+}
+button#map-btn:hover {
+    background-color: #3367D6;
+}
+
+button#back-btn {
+    background-color: #6c757d; /* Gris para volver */
+}
+button#back-btn:hover {
+    background-color: #5a6268;
+}
+
+button#next-btn {
+    background-color: var(--primary-color);
+}
+button#next-btn:hover {
+    background-color: var(--hogueras-orange);
+}
+
+button#optional-btn {
+    background-color: #28a745; /* Verde para opcional */
+}
+button#optional-btn:hover {
+    background-color: #218838;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer con desplegable */
+footer {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--background-color);
+    border-top: 1px solid #eee;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    position: fixed; /* Fixed at the bottom */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Above other content */
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+}
+
+#stop-selection-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#stop-selector {
+    padding: 8px 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    max-width: 250px; /* Limit width */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Modal de imagen a pantalla completa */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 200; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex; /* Show when active */
+}
+
+#modal-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain; /* Ensure the whole image is visible */
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 480px) {
+    .welcome-icon {
+        width: 100px;
+        height: 100px;
+    }
+    .title-hogueras {
+        font-size: 3em;
+    }
+    .title-year {
+        font-size: 2em;
+    }
+    #start-button {
+        font-size: 1.1em;
+        padding: 12px 25px;
+    }
+    #stop-title {
+        font-size: 1.5em;
+    }
+    #stop-lema {
+        font-size: 1.1em;
+    }
+    #stop-artist {
+        font-size: 0.9em;
+    }
+    #stop-description {
+        font-size: 1em;
+    }
+    .buttons button {
+        width: 100%; /* Full width buttons on small screens */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .buttons {
+        gap: 10px;
+    }
+    #stop-selector {
+        max-width: 180px; /* Adjust for smaller screens */
+        font-size: 0.9em;
+    }
+    footer {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 375px) { /* Even smaller screens like iPhone SE */
+    .buttons button {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+    #stop-selection-container {
+        flex-direction: column; /* Stack label and select */
+        gap: 5px;
+    }
+}
